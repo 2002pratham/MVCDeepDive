@@ -3,6 +3,7 @@ package com.igreaper.MVCflow.controller;
 import com.igreaper.MVCflow.dto.EmployeeDTO;
 import com.igreaper.MVCflow.entities.EmployeeEntity;
 import com.igreaper.MVCflow.repositories.EmployeeRepository;
+import com.igreaper.MVCflow.service.EmployeeService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -11,27 +12,31 @@ import java.util.List;
 @RequestMapping("/employees")
 public class EmployeeController {
 
-    private final EmployeeRepository employeeRepository;
+    private final EmployeeDTO employeeDTO;
+    private final EmployeeService employeeService;
 
-    public EmployeeController(EmployeeRepository employeeRepository) {
-        this.employeeRepository = employeeRepository;
+    public EmployeeController(EmployeeDTO employeeDTO, EmployeeService employeeService) {
+        this.employeeDTO = employeeDTO;
+        this.employeeService = employeeService;
+
     }
 
 
     @GetMapping("/{employeesID}")
-    public EmployeeEntity getEmployeeById(@PathVariable(name = "employeesID") Integer id){
-        return employeeRepository.findById(id).orElse(null);
+    public EmployeeDTO getEmployeeById(@PathVariable(name = "employeesID") Integer id){
+        return employeeService.getEmployeeById(id);
+
     }
 
     @GetMapping
-    public List<EmployeeEntity> getEmployeesByAge(@RequestParam(required = false) Integer age,
+    public List<EmployeeDTO> getAllEmployees(@RequestParam(required = false) Integer age,
                                                   @RequestParam(required = false) String sortBy){
-        return employeeRepository.findAll();
+        return employeeService.getAllEmployees();
     }
 
     @PostMapping("/create")
-    public EmployeeEntity createEmployee(@RequestBody EmployeeEntity employeeEntity){
-        return employeeRepository.save(employeeEntity);
+    public EmployeeDTO createEmployee(@RequestBody EmployeeEntity employeeEntity){
+        return employeeService.createEmployee(employeeDTO);
     }
 
 }
