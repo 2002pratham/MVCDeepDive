@@ -5,24 +5,21 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
-
 
 @Setter
 @Getter
 @NoArgsConstructor
+@AllArgsConstructor
 public class EmployeeDTO {
+    private Long id;
     private String name;
     private String email;
-    private int id;
-    private LocalDateTime dateOfJoining;
     private int Age;
 
-    public EmployeeDTO(String pratham, String mail, int id, int i, int age) {
-        this.name = name;
-        this.email = mail;
+    public EmployeeDTO(Long id, String n, String mail, int i, int age) {
         this.id = id;
+        this.name = n;
+        this.email = mail;
         this.Age = i;
-        this.dateOfJoining = LocalDateTime.now();
     }
 }
