@@ -12,18 +12,16 @@ import java.util.List;
 @RequestMapping("/employees")
 public class EmployeeController {
 
-    private final EmployeeDTO employeeDTO;
     private final EmployeeService employeeService;
 
-    public EmployeeController(EmployeeDTO employeeDTO, EmployeeService employeeService) {
-        this.employeeDTO = employeeDTO;
+    public EmployeeController( EmployeeService employeeService) {
         this.employeeService = employeeService;
 
     }
 
 
     @GetMapping("/{employeesID}")
-    public EmployeeDTO getEmployeeById(@PathVariable(name = "employeesID") Integer id){
+    public EmployeeDTO getEmployeeById(@PathVariable(name = "employeesID") long id){
         return employeeService.getEmployeeById(id);
 
     }
@@ -35,8 +33,19 @@ public class EmployeeController {
     }
 
     @PostMapping("/create")
-    public EmployeeDTO createEmployee(@RequestBody EmployeeEntity employeeEntity){
+    public EmployeeDTO createEmployee(@RequestBody EmployeeDTO employeeDTO){
         return employeeService.createEmployee(employeeDTO);
+    }
+
+    @PutMapping("/{employeeId}")
+    public EmployeeDTO updateAllOfEmployee(@PathVariable Long employeeId,
+                                           @RequestBody EmployeeDTO employeeDTO){
+        return employeeService.updateAllOfEmployee(employeeId, employeeDTO);
+    }
+
+    @DeleteMapping("/{employeeId}")
+    public void deleteEmployeeById(@PathVariable Long employeeId){
+        employeeService.deleteEmployeeById(employeeId);
     }
 
 }

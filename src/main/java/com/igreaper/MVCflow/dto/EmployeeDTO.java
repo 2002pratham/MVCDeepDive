@@ -15,11 +15,4 @@ public class EmployeeDTO {
     private String name;
     private String email;
     private int Age;
-
-    public EmployeeDTO(Long id, String n, String mail, int i, int age) {
-        this.id = id;
-        this.name = n;
-        this.email = mail;
-        this.Age = i;
-    }
 }
